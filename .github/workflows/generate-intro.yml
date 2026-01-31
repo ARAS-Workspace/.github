@@ -3,9 +3,14 @@ name: Generate Intro Animation
 on:
   workflow_dispatch:
     inputs:
+      prefix:
+        description: 'Output filename: intro-<prefix>.gif'
+        required: true
+        default: 'dark'
+        type: string
       theme:
         description: 'agg color theme'
-        required: false
+        required: true
         default: 'solarized-dark'
         type: choice
         options:
@@ -18,11 +23,6 @@ on:
           - nord
           - gruvbox-dark
           - gruvbox-light
-
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/workspace-intro.sh'
 
 jobs:
   generate:
@@ -39,7 +39,7 @@ jobs:
         run: |
           export TERM=xterm-256color
           chmod +x scripts/workspace-intro.sh
-          
+
           asciinema rec \
             --cols 120 \
             --rows 24 \
@@ -47,7 +47,7 @@ jobs:
             -c "./scripts/workspace-intro.sh" \
             recording.cast
 
-      - name: Convert to GIF (${{ inputs.theme || 'solarized-dark' }})
+      - name: Convert to GIF (${{ inputs.theme }})
         run: |
           mkdir -p assets
 
@@ -58,17 +58,17 @@ jobs:
             --font-dir /fonts \
             --speed 1.5 \
             --fps-cap 15 \
-            --theme ${{ inputs.theme || 'solarized-dark' }} \
+            --theme ${{ inputs.theme }} \
             --last-frame-duration 3 \
             /data/recording.cast \
-            /data/assets/intro.gif
+            /data/assets/intro-${{ inputs.prefix }}.gif
 
       - name: Commit
         run: |
           rm -f recording.cast
-          
+
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add assets/intro.gif
-          git diff --staged --quiet || git commit -m "chore: update intro animation"
+          git add assets/intro-${{ inputs.prefix }}.gif
+          git diff --staged --quiet || git commit -m "chore: update intro animation (${{ inputs.prefix }})"
           git push

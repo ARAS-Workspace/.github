@@ -194,7 +194,7 @@ main() {
     # ═══════════════════════════════════════════════════════
 
     # Command: whoami
-    type_command "$ws_prompt" "whoami" "${C_WHITE}${AUTHOR_NAME}${C_RESET} ${C_DIM}<${AUTHOR_EMAIL}>${C_RESET}"
+    type_command "$ws_prompt" "whoami" "${C_BOLD}${AUTHOR_NAME}${C_RESET} ${C_DIM}<${AUTHOR_EMAIL}>${C_RESET}"
 
     sleep 0.6
 
