@@ -1,4 +1,4 @@
-name: Generate Intro Animation
+name: Generate Intro Animation (Hosted)
 
 on:
   workflow_dispatch:
@@ -19,14 +19,9 @@ on:
           - gruvbox-dark
           - gruvbox-light
 
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/workspace-intro.sh'
-
 jobs:
   generate:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     permissions:
       contents: write
@@ -35,11 +30,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup runner dependencies
+        run: |
+          chmod +x .github/main/scripts/runner.sh
+          sudo .github/main/scripts/runner.sh
+
       - name: Record animation
         run: |
           export TERM=xterm-256color
           chmod +x scripts/workspace-intro.sh
-          
+
           asciinema rec \
             --cols 120 \
             --rows 24 \
@@ -53,9 +53,7 @@ jobs:
 
           docker run --rm \
             -v "$(pwd)":/data \
-            -v "/home/runner/.local/share/fonts":/fonts:ro \
             agg:latest \
-            --font-dir /fonts \
             --speed 1.5 \
             --fps-cap 15 \
             --theme ${{ inputs.theme || 'solarized-dark' }} \
@@ -66,7 +64,7 @@ jobs:
       - name: Commit
         run: |
           rm -f recording.cast
-          
+
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add assets/intro.gif
