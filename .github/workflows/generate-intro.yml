@@ -26,7 +26,7 @@ jobs:
           
           asciinema rec \
             --cols 120 \
-            --rows 48 \
+            --rows 24 \
             --idle-time-limit 2 \
             -c "./scripts/workspace-intro.sh" \
             recording.cast
