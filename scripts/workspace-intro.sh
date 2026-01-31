@@ -175,29 +175,23 @@ main() {
     clear
     sleep 0.3
 
+    local ws_prompt="${C_GREEN}${SSH_USER}${C_RESET}@${C_CYAN}${SSH_HOST}${C_RESET}:~\$ "
+
     # ═══════════════════════════════════════════════════════
     # PHASE 2: Welcome Banner
     # ═══════════════════════════════════════════════════════
 
-    instant "${C_BOLD}${C_WHITE}"
-    instant "$ASCII_BANNER"
-    instant "${C_RESET}"
+    type_command "$ws_prompt" "cat /etc/motd" "${C_BOLD}${ASCII_BANNER}${C_RESET}"
 
     sleep 0.4
 
-    instant "  ${C_DIM}──────────────────────────────────────────${C_RESET}\n"
-    sleep 0.2
-    instant "  ${SLOGAN}\n"
-    instant "  ${C_DIM}──────────────────────────────────────────${C_RESET}\n"
-    instant "\n"
+    type_command "$ws_prompt" "MOTTO" "${SLOGAN}"
 
     sleep "$SECTION_PAUSE"
 
     # ═══════════════════════════════════════════════════════
     # PHASE 3: Interactive Session
     # ═══════════════════════════════════════════════════════
-
-    local ws_prompt="${C_GREEN}${SSH_USER}${C_RESET}@${C_CYAN}${SSH_HOST}${C_RESET}:~\$ "
 
     # Command: whoami
     type_command "$ws_prompt" "whoami" "${C_WHITE}${AUTHOR_NAME}${C_RESET} ${C_DIM}<${AUTHOR_EMAIL}>${C_RESET}"
@@ -221,7 +215,7 @@ main() {
     printf '%b' "$ws_prompt"
     sleep 2
 
-    printf '\n\n'
+    printf '\n'
     sleep 0.5
 }
 
