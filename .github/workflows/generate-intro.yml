@@ -71,4 +71,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git add assets/intro-${{ inputs.prefix }}.gif
           git diff --staged --quiet || git commit -m "chore: update intro animation (${{ inputs.prefix }})"
+          git pull --rebase
           git push
