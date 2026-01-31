@@ -12,18 +12,13 @@ This repository contains:
 ## Pipeline
 
 ```mermaid
-  flowchart TD                                                                                                                                                                                                                                                                                                                                                
-      T{"Trigger"} -->|push to main\nor manual| A                                                                                                                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                                                                                                              
-      A["📝 workspace-intro.sh\n(Bash + GitHub API)"] -->|simulates SSH session\nfetches top 5 repos| B                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                                                                                                              
-      B["🎥 asciinema rec\n120 cols × 24 rows"] -->|recording.cast| C                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                                                                                                                              
-      C["🎨 agg (Docker)\nSolarized Dark · 1.5x · 15fps"] -->|assets/intro.gif| D                                                                                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                                                                                                              
-      D["📦 git commit & push\ngithub-actions bot"] --> E                                                                                                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                                                                                                                              
-      E["🖥️ Organization Profile\ngithub.com/ARAS-Workspace"]  
+flowchart TD
+    T{"Trigger"} -->|push to main<br>or manual| A
+    A["workspace-intro.sh<br>(Bash + GitHub API)"] -->|recording.cast| B
+    B["asciinema rec<br>120 cols x 24 rows"] -->|recording.cast| C
+    C["agg (Docker)<br>Solarized Dark, 1.5x, 15fps"] -->|assets/intro.gif| D
+    D["git commit & push<br>github-actions bot"] --> E
+    E["Organization Profile<br>github.com/ARAS-Workspace"]
 ```
 
 ## Structure
