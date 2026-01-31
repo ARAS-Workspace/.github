@@ -2,4 +2,4 @@
 
 ---
 
-![intro](../assets/intro.gif)
+![intro](assets/intro.gif)
