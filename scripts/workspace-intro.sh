@@ -57,7 +57,7 @@ C_YELLOW='\033[33m'
 fetch_repositories() {
     local repos
     repos=$(curl -sf "https://api.github.com/orgs/${GITHUB_ORG}/repos?sort=updated&per_page=10" | \
-            jq -r '[.[] | select(.fork == false)] | .[].name // empty' | head -5)
+            jq -r '[.[] | select(.fork == false)] | .[].name // empty' | head -15)
 
     if [[ -z "$repos" ]]; then
         echo "no-repos-found"
