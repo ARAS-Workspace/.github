@@ -14,7 +14,7 @@ set -euo pipefail
 GITHUB_ORG="ARAS-Workspace"
 
 # Excluded repositories
-specialExcludedRepos=("wireguard-apple")
+specialExcludedRepos=("wireguard-apple", "homebrew-tap", ".github")
 
 # Domain & SSH
 DOMAIN="aras.tc"
@@ -69,7 +69,7 @@ fetch_repositories() {
 
     repos=$(curl -sf "https://api.github.com/orgs/${GITHUB_ORG}/repos?sort=updated&per_page=10" | \
             jq -r --argjson excluded "$jq_filter" \
-            '[.[] | select(.fork == false) | select(.name as $n | $excluded | index($n) | not)] | .[].name // empty' | head -5)
+            '[.[] | select(.fork == false) | select(.name as $n | $excluded | index($n) | not)] | .[].name // empty' | head -10)
 
     if [[ -z "$repos" ]]; then
         echo "no-repos-found"
