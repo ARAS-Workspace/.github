@@ -14,7 +14,7 @@ set -euo pipefail
 GITHUB_ORG="ARAS-Workspace"
 
 # Excluded repositories
-specialExcludedRepos=("wireguard-apple", "homebrew-tap", ".github")
+specialExcludedRepos=("wireguard-apple" "homebrew-tap" ".github")
 
 # Domain & SSH
 DOMAIN="aras.tc"
@@ -60,7 +60,7 @@ C_YELLOW='\033[33m'
 
 
 fetch_repositories() {
-    local repos filtered_repos
+    local repos
     local jq_filter
 
     # Build jq filter from excluded repos array
@@ -196,7 +196,7 @@ main() {
 
     sleep 0.4
 
-    type_command "$ws_prompt" "MOTTO" "${SLOGAN}"
+    type_command "$ws_prompt" "motto --prompt 'What is this?'" "${SLOGAN}"
 
     sleep "$SECTION_PAUSE"
 
