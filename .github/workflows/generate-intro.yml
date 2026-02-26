@@ -1,11 +1,11 @@
-name: Generate Intro Animation
-
-on:
-  workflow_dispatch:
-    inputs:
-      prefix:
-        description: 'Output filename: intro-<prefix>.gif'
-        required: true
+name: Generate Intro Animation                                                                                                                                                         
+                                                                                                                                                                                       
+on:                                                                                                                                                                                    
+  workflow_dispatch:                                                                                                                                                                   
+    inputs:                                                                                                                                                                            
+      prefix:                                                                                                                                                                          
+        description: 'Output filename: intro-<prefix>.gif'                                                                                                                             
+        required: true                                                                                                                                                                 
         default: 'dark'
         type: string
       theme:
@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Record animation
         run: |
@@ -47,7 +47,10 @@ jobs:
             -c "./scripts/workspace-intro.sh" \
             recording.cast
 
-      - name: Convert to GIF (${{ inputs.theme }})
+      - name: Convert to GIF
+        env:
+          AGG_THEME: ${{ inputs.theme }}
+          OUTPUT_PREFIX: ${{ inputs.prefix }}
         run: |
           mkdir -p assets
 
@@ -58,18 +61,21 @@ jobs:
             --font-dir /fonts \
             --speed 1.5 \
             --fps-cap 15 \
-            --theme ${{ inputs.theme }} \
+            --theme "$AGG_THEME" \
             --last-frame-duration 3 \
             /data/recording.cast \
-            /data/assets/intro-${{ inputs.prefix }}.gif
+            "/data/assets/intro-${OUTPUT_PREFIX}.gif"
 
       - name: Commit
+        env:
+          OUTPUT_PREFIX: ${{ inputs.prefix }}
         run: |
           rm -f recording.cast
 
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add assets/intro-${{ inputs.prefix }}.gif
-          git diff --staged --quiet || git commit -m "chore: update intro animation (${{ inputs.prefix }})"
+          git add "assets/intro-${OUTPUT_PREFIX}.gif"
+          git diff --staged --quiet || git commit -m "chore: update intro animation (${OUTPUT_PREFIX})"
           git pull --rebase
           git push
+
