@@ -29,8 +29,9 @@ TOOLS & DEPENDENCIES
 | bc         | 1.07.1  | GPL-3.0          | GPL-3.0-or-later |
 | curl       | 8.5.0   | curl License     | curl             |
 
-Versions reflect Ubuntu 24.04 (ubuntu-latest) packages. agg is built from
-the main branch of its repository as a Docker image.
+Versions reflect Ubuntu 24.04 (ubuntu-latest) packages. agg is built as a
+Docker image from a pinned commit of its repository (main, aae34b0,
+2026-08-14); see AGG_REF in runner.sh.
 
 License URLs:
 

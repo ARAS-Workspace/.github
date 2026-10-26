@@ -38,13 +38,16 @@ echo "  ✅ Dependencies installed"
 # 3. Build agg Docker image
 # ─────────────────────────────────────────────────────────────
 
-echo "[3/3] Building agg Docker image..."
+# Pinned agg commit (main, 2026-08-14). Bump deliberately and verify the GIF output.
+AGG_REF="aae34b012382536c8c01c753e4b609424642a06d"
+
+echo "[3/3] Building agg Docker image (${AGG_REF:0:7})..."
 
 if docker images | grep -q "^agg "; then
     echo "  ⚠️  agg image exists, rebuilding..."
 fi
 
-docker build -t agg:latest https://github.com/asciinema/agg.git
+docker build -t agg:latest "https://github.com/asciinema/agg.git#${AGG_REF}"
 
 echo "  ✅ agg image built"
 
