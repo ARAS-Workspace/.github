@@ -1,0 +1,93 @@
+   █████╗ ██████╗  █████╗ ███████╗
+  ██╔══██╗██╔══██╗██╔══██╗██╔════╝
+  ███████║██████╔╝███████║███████╗
+  ██╔══██║██╔══██╗██╔══██║╚════██║
+  ██║  ██║██║  ██║██║  ██║███████║
+  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+
+THIRD PARTY LICENSES
+==============================================================================
+
+.github (ARAS-Workspace Organization Profile)
+Copyright (c) 2025 - Rıza Emre ARAS <r.emrearas@proton.me>
+Licensed under MIT - see LICENSE file for details
+
+This document lists third-party software dependencies and their licenses.
+All dependencies are installed at workflow runtime on the GitHub-hosted
+runner (ubuntu-latest) by .github/main/scripts/runner.sh. None of them are
+distributed with this repository.
+
+==============================================================================
+TOOLS & DEPENDENCIES
+==============================================================================
+
+| Tool       | Version | License          | SPDX Identifier  |
+|------------|---------|------------------|------------------|
+| asciinema  | 2.4.0   | GPL-3.0          | GPL-3.0-only     |
+| agg        | 1.9.0   | GPL-3.0          | GPL-3.0-or-later |
+| jq         | 1.7.1   | MIT              | MIT              |
+| bc         | 1.07.1  | GPL-3.0          | GPL-3.0-or-later |
+| curl       | 8.5.0   | curl License     | curl             |
+
+Versions reflect Ubuntu 24.04 (ubuntu-latest) packages. agg is built from
+the main branch of its repository as a Docker image.
+
+License URLs:
+
+- asciinema:    https://github.com/asciinema/asciinema/blob/develop/LICENSE
+- agg:          https://github.com/asciinema/agg/blob/main/LICENSE
+- jq:           https://github.com/jqlang/jq/blob/master/COPYING
+- bc:           https://www.gnu.org/software/bc/
+- curl:         https://curl.se/docs/copyright.html
+
+==============================================================================
+FONTS
+==============================================================================
+
+| Font           | Version | License | SPDX Identifier |
+|----------------|---------|---------|-----------------|
+| JetBrains Mono | 2.304   | OFL-1.1 | OFL-1.1         |
+
+JetBrains Mono is bundled in the agg Docker image (Debian package
+fonts-jetbrains-mono) and is used to render the terminal text.
+
+License URLs:
+
+- JetBrains Mono: https://github.com/JetBrains/JetBrainsMono/blob/master/OFL.txt
+
+==============================================================================
+LICENSE TEXTS
+==============================================================================
+
+------------------------------------------------------------------------------
+GPL-3.0 (GNU General Public License v3.0)
+------------------------------------------------------------------------------
+
+asciinema, agg and bc are licensed under GPL-3.0.
+Full license text: https://www.gnu.org/licenses/gpl-3.0.txt
+
+Note: This project uses these as external tools, not as libraries.
+The GPL-3.0 license applies to the tools themselves, not to this project.
+
+------------------------------------------------------------------------------
+MIT License
+------------------------------------------------------------------------------
+
+jq is licensed under MIT.
+Full license text: https://opensource.org/license/mit
+
+------------------------------------------------------------------------------
+curl License
+------------------------------------------------------------------------------
+
+curl is licensed under the curl License (MIT/X derivative).
+Full license text: https://curl.se/docs/copyright.html
+
+------------------------------------------------------------------------------
+OFL-1.1 (SIL Open Font License 1.1)
+------------------------------------------------------------------------------
+
+JetBrains Mono is licensed under OFL-1.1.
+Full license text: https://openfontlicense.org/open-font-license-official-text/
+
+==============================================================================

@@ -1,0 +1,63 @@
+name: Generate Intro Animation
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: generate-intro
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Install dependencies
+        run: sudo bash .github/main/scripts/runner.sh
+
+      - name: Record animation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export TERM=xterm-256color
+          chmod +x scripts/workspace-intro.sh
+
+          asciinema rec \
+            --cols 120 \
+            --rows 30 \
+            --idle-time-limit 2 \
+            -c "./scripts/workspace-intro.sh" \
+            recording.cast
+
+      - name: Convert to GIF (dark & light)
+        run: |
+          mkdir -p assets
+
+          for variant in dark light; do
+            docker run --rm \
+              -v "$(pwd)":/data \
+              agg:latest \
+              --speed 1.5 \
+              --fps-cap 15 \
+              --theme "solarized-${variant}" \
+              --last-frame-duration 3 \
+              /data/recording.cast \
+              "/data/assets/intro-${variant}.gif"
+          done
+
+      - name: Commit
+        run: |
+          rm -f recording.cast
+
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add assets/intro-dark.gif assets/intro-light.gif
+          git diff --staged --quiet || git commit -m "Update intro animation"
+          git pull --rebase
+          git push
